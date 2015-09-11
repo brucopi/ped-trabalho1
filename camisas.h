@@ -20,6 +20,7 @@ struct cor *proximaCor;
 NO_PESSOA *noInicial;
 int quantidadeNo;
 } NO_COR;
+
 typedef struct listaCor {
 NO_COR *corInicial;
 int quantidadeCor;
