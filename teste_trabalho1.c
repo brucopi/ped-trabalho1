@@ -5,6 +5,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include <string.h>
+#include "camisas.h"
 
 int main(){
 
@@ -23,6 +24,7 @@ int main(){
 		}
 	}
 	
+	printf("Tamanho = %d\n",P);
 	
   
 return 0;
