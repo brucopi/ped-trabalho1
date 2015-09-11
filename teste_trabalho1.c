@@ -5,13 +5,15 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include <string.h>
-#include "camisas.h"
+#include "camisas.c"
 
 int main(){
 
 
 	int numCores, quantCamisetas;
 	char cor[20];
+	
+	
 	
 	printf("Digite o número de cores\n");//opcional
 	scanf("%d", &numCores);
