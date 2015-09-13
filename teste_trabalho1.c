@@ -39,10 +39,8 @@ void inserircor(Lista *lista, char *cores)
 	//novo->cor = cor;
 	novo = malloc(sizeof(Cor));
 	//novo->cor=cores;
-	//printf("Erro no strdup\n"); //teste
 	//strcpy(novo->cor,cores); //erro aqui	
 	novo->cor=strdup(cores);
-	//printf("Não tem erro no strdup\n");//teste
 	novo->quantidadeNo= 0;
 	novo->proximaCor = NULL;
 	novo->noInicial = NULL;	
@@ -63,7 +61,7 @@ void inserircor(Lista *lista, char *cores)
 	//insere ordenado
 	Cor *cores2,*ant;
 	cores2=lista->corInicial;
-	int x;
+	int x,y;
 	x= strcmp(novo->cor, cores2->cor);
 	//insere no inicio
 	if(x == 0 || x == -1)
@@ -72,8 +70,8 @@ void inserircor(Lista *lista, char *cores)
 		lista->corInicial = novo;
 		return;
 	}
-	//insere no meio
-	for(x=0;x<lista->quantidadeCor;x++)
+	//insere no meio (erro de quando insere duas letras iguais)
+	for(y=0;y<lista->quantidadeCor;y++)
 	{
 		if(cores2->proximaCor == NULL)
 		{
@@ -90,11 +88,7 @@ void inserircor(Lista *lista, char *cores)
 			return;
 		}
 	}
-	/*
-	while(p_l->prox != NULL && p_l->prox->info < e){
-		p_l = p_l->prox;
-	}
-	*/
+	
 	
 	
 }
@@ -107,7 +101,6 @@ void mostracor(Lista *lista)
 	/*if(lista->corInicial == NULL)
 		return;
 	
-	printf("Entrou\n");
 	*/
 	//while(cores->proximaCor != NULL)
 	for(x=0;x<lista->quantidadeCor;x++)
@@ -118,19 +111,50 @@ void mostracor(Lista *lista)
 		//printf("Endereço do proximo nó de cor = %d\n",cores->proximaCor);
 		//printf("Endereço do proximo nó de usuario=%d\n",cores->noInicial);
 		cores=cores->proximaCor;
-		//x=x+1;//teste
+	
 	}
 	//printf("Cor= %s\n",cores->cor);
 	//printf("Quantidade de nó= %d\n",cores->quantidadeNo);
 }
 
+void mostrarpessoa(Cor *cores)
+{
+	printf("Nome= %s\n",aluno->nomeAluno);
+	printf("Tamanho da camiseta= %i",aluno->tamanhoCamiseta);
+}
+void inserepessoa(Lista *lista,char *nome,  int tam, char *cor )
+{
+	Pessoa *novo;
+	novo = malloc(sizeof(Pessoa));
+	novo->nomeAluno=strdup(nome);
+	novo->tamanhoCamiseta=tam;
+	novo->proximoNo = NULL;
+	Cor *cores;
+	cores=lista->corInicial;
+	int x,y;
+	for(y=0;y<lista->quantidadeCor;y++)
+	{
+		x= strcmp(cor, cores->cor);
+		//strcmp(grande,grande) == 0  
+		if(x == 0)
+		{//insere no inicio (funcionando)
+			novo->proximoNo = cores->noInicial;
+			cores->noInicial = novo;
+			cores->quantidadeNo  =cores->quantidadeNo +1;
+			return;
+		}
+		cores=cores->proximaCor;
+	}
+}				  
+				  
+				  
 int main(){
 
 
 	int numCores, quantCamisetas;
 	char cor[20];
 	char nome[100];
-	char tam[20];
+	int tam;
 	char cor2[20];
 	Lista l;
 	
@@ -163,8 +187,9 @@ int main(){
 			printf("Digite o nome\n");//Opcional
 			scanf("%s",nome);
 			printf("Digite a cor e tamanho\n");//Opcional
-			scanf("%s%s", cor2,tam);
+			scanf("%s%d", cor2,tam);
 			//printf("Nome=%s\tCor=%s\ttam=%s\n",nome,cor2,tam);//Opcional
+			inserepessoa(&l,nome, tam, cor2 );
 			quantCamisetas--;
 		}
 		
@@ -173,7 +198,7 @@ int main(){
 		//free na lista
 		mostracor(&l);//mostra as cores
 		//mostraquantcor(&l);//só  teste tem que tirar
-		
+		printf("\n");
 		printf("Digite o número de cores\n");//opcional
 		scanf("%d", &numCores);
 	}
