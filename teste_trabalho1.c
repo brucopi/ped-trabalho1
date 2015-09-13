@@ -1,4 +1,5 @@
- /*
+
+/*
  * Programa para testar o trabalho 1 sobre organização de camisetas
  */
 
@@ -38,7 +39,10 @@ void inserircor(Lista *lista, char *cores)
 	//novo->cor = cor;
 	novo = malloc(sizeof(Cor));
 	//novo->cor=cores;
-	strcpy(novo->cor,(*cores));
+	//printf("Erro no strdup\n"); //teste
+	//strcpy(novo->cor,cores); //erro aqui	
+	novo->cor=strdup(cores);
+	//printf("Não tem erro no strdup\n");//teste
 	novo->quantidadeNo= 0;
 	novo->proximaCor = NULL;
 	novo->noInicial = NULL;	
@@ -56,21 +60,22 @@ void mostracor(Lista *lista)
 {
 	Cor *cores;
 	cores=lista->corInicial;
-	int  x=0;
+	int  x=0;//teste
 	/*if(lista->corInicial == NULL)
 		return;
 	
 	printf("Entrou\n");
 	*/
-	while(cores->proximaCor == NULL)
+	//while(cores->proximaCor != NULL)
+	for(x=0;x<lista->quantidadeCor;x++)
 	{
 		printf("Cor= %s\n",cores->cor);
 		printf("Quantidade de nó= %d\n",cores->quantidadeNo);
-		printf("%d\n",x);
+		//printf("%d\n",x);//teste
 		//printf("Endereço do proximo nó de cor = %d\n",cores->proximaCor);
 		//printf("Endereço do proximo nó de usuario=%d\n",cores->noInicial);
 		cores=cores->proximaCor;
-		x=x+1;
+		//x=x+1;//teste
 	}
 	//printf("Cor= %s\n",cores->cor);
 	//printf("Quantidade de nó= %d\n",cores->quantidadeNo);
