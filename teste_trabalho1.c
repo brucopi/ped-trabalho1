@@ -48,10 +48,53 @@ void inserircor(Lista *lista, char *cores)
 	novo->noInicial = NULL;	
 	//se a lista estiver vazia
 	if(lista->corInicial == NULL)
+	{
 		lista->corInicial = novo;
+		return;
+	}
+	//######################################################
+	//insere no inicio (funcionando)
+	//novo->proximaCor = lista->corInicial;
+	//lista->corInicial = novo;
+	//######################################################
+	//strcmp(maior,menor) == 1
+	//strcmp(menor,maior) == -1 
+	//strcmp(grande,grande) == 0     
+	//insere ordenado
+	Cor *cores2,*ant;
+	cores2=lista->corInicial;
+	int x;
+	x= strcmp(novo->cor, cores2->cor);
 	//insere no inicio
-	novo->proximaCor = lista->corInicial;
-	lista->corInicial = novo;
+	if(x == 0 || x == -1)
+	{
+		novo->proximaCor = lista->corInicial;
+		lista->corInicial = novo;
+		return;
+	}
+	//insere no meio
+	for(x=0;x<lista->quantidadeCor;x++)
+	{
+		if(cores2->proximaCor == NULL)
+		{
+			cores2->proximaCor = novo;
+			return;
+		}
+		ant=cores2;
+		cores2=cores2->proximaCor;
+		x= strcmp(novo->cor, cores2->cor);
+		if(x == 0 || x == -1)
+		{
+			novo->proximaCor = ant->proximaCor;
+			ant->proximaCor = novo;
+			return;
+		}
+	}
+	/*
+	while(p_l->prox != NULL && p_l->prox->info < e){
+		p_l = p_l->prox;
+	}
+	*/
 	
 	
 }
