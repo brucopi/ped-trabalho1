@@ -93,6 +93,19 @@ void inserircor(Lista *lista, char *cores)
 	
 }
 
+void mostrarpessoa(Cor *cores)
+{
+	int x;
+	Pessoa *aluno;
+	aluno = cores->noInicial;
+	for(x=0;x<cores->quantidadeNo;x++)
+	{
+		printf("Cor= %s\n",cores->cor);
+		printf("Nome= %s\n",aluno->nomeAluno);
+		printf("Tamanho da camiseta= %u\n",aluno->tamanhoCamiseta);
+	}
+}
+
 void mostracor(Lista *lista)
 {
 	Cor *cores;
@@ -105,24 +118,23 @@ void mostracor(Lista *lista)
 	//while(cores->proximaCor != NULL)
 	for(x=0;x<lista->quantidadeCor;x++)
 	{
-		printf("Cor= %s\n",cores->cor);
+		printf("#########################\n");//teste
+		//printf("Cor= %s\n",cores->cor);//opcional
 		printf("Quantidade de nó= %d\n",cores->quantidadeNo);
+		mostrarpessoa(cores);
 		//printf("%d\n",x);//teste
 		//printf("Endereço do proximo nó de cor = %d\n",cores->proximaCor);
 		//printf("Endereço do proximo nó de usuario=%d\n",cores->noInicial);
 		cores=cores->proximaCor;
+		printf("#########################\n");//teste
 	
 	}
 	//printf("Cor= %s\n",cores->cor);
 	//printf("Quantidade de nó= %d\n",cores->quantidadeNo);
 }
 
-void mostrarpessoa(Cor *cores)
-{
-	printf("Nome= %s\n",aluno->nomeAluno);
-	printf("Tamanho da camiseta= %i",aluno->tamanhoCamiseta);
-}
-void inserepessoa(Lista *lista,char *nome,  int tam, char *cor )
+
+void inserepessoa(Lista *lista,char *nome,  TAMANHO tam, char *cor )
 {
 	Pessoa *novo;
 	novo = malloc(sizeof(Pessoa));
@@ -154,7 +166,7 @@ int main(){
 	int numCores, quantCamisetas;
 	char cor[20];
 	char nome[100];
-	int tam;
+	TAMANHO tam;
 	char cor2[20];
 	Lista l;
 	
@@ -172,7 +184,7 @@ int main(){
 		printf("Digite as cores\n");
 		for(; numCores > 0; numCores--) 
 		{
-			scanf("%s", cor);
+			scanf("%s",cor);
 			//printf("%s\n",cor);//opcional
 			//envia uma cor por vez
 			inserircor(&l,cor);
@@ -183,11 +195,19 @@ int main(){
 	
 		printf("Digite a quantidade de camisas\n");//Opcional
 		scanf("%d",&quantCamisetas);
+		setbuf(stdin, NULL);
 		while (quantCamisetas != 0){
+			//setbuf(stdin, NULL);
 			printf("Digite o nome\n");//Opcional
-			scanf("%s",nome);
+			scanf("%[^\n]s", nome);
+			setbuf(stdin, NULL);
+			//scanf("%s",nome);
+			//gets(nome);
 			printf("Digite a cor e tamanho\n");//Opcional
-			scanf("%s%d", cor2,tam);
+			scanf("%s%u",cor2,&tam);
+			setbuf(stdin, NULL);//limparmos o buffer logo após a entrada, apagando qualquer "sujeira" deixada pelo teclado:
+			//printf(" oi\n");
+			//printf("teste Nome=%s\n",nome);//teste
 			//printf("Nome=%s\tCor=%s\ttam=%s\n",nome,cor2,tam);//Opcional
 			inserepessoa(&l,nome, tam, cor2 );
 			quantCamisetas--;
